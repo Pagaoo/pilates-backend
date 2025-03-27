@@ -31,4 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Outros ###
+Pilates.png
 /src/main/resources/env.properties
