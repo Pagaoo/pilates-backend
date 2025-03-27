@@ -2,6 +2,7 @@ package com.backend.pilates.model;
 
 import com.backend.pilates.enums.RolesEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +25,16 @@ public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 15)
+    @Schema(
+            description = "Papel do usuário no sistema",
+            example = "ROLE_ADMIN",
+            required = true,
+            allowableValues = {"ROLE_ADMIN", "ROLE_PROFESSOR"}
+    )
     private RolesEnum name;
+    @Column(nullable = false, length = 50)
     private String description;
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")

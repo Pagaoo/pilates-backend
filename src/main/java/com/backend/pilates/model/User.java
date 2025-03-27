@@ -1,6 +1,7 @@
 package com.backend.pilates.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +13,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.security.Timestamp;
 import java.time.Instant;
 
 @Entity
@@ -26,17 +26,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @NotBlank
     private String first_name;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     @NotBlank
     private String last_name;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     @NotBlank
     @Email
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 60)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank
     private String password;
     @ManyToOne
