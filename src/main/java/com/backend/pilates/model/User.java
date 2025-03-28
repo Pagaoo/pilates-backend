@@ -25,7 +25,7 @@ import java.time.Instant;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(nullable = false, length = 30)
     @NotBlank
     private String first_name;
@@ -42,7 +42,7 @@ public class User {
     private String password;
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
-    private Roles role_id;
+    private Roles role;
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(nullable = false, updatable = false)
