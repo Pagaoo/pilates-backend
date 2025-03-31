@@ -11,6 +11,8 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
 
     @Mapping(target = "role", source = "role_id")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "created_at", ignore = true)
     User toUserEntity(UserRequestDTO userRequestDTO);
 
     @Mapping(target = "role_id", source = "role.id")
