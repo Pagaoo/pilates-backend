@@ -1,10 +1,16 @@
 package com.backend.pilates.enums;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
 
+@Getter
 public enum RolesEnum {
-    @Schema(description = "Administrador do sistema", example = "ROLE_ADMIN")
-    ROLE_ADMIN,
-    @Schema(description = "Professor", example = "ROLE_PROFESSOR")
-    ROLE_PROFESSOR
+    ROLE_ADMIN("Administrador"),
+    ROLE_PROFESSOR("Professor");
+
+    private final String displayName;
+
+    RolesEnum(String displayName) {
+        this.displayName = displayName;
+    }
+
 }
