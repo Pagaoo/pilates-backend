@@ -18,8 +18,7 @@ public class StudentService {
     }
 
     public StudentResponseDTO createStudent(StudentRequestDTO studentRequestDTO) {
-        Student student = studentMapper.toStudentEntity(studentRequestDTO);
-        student.setIs_active(true);
+        Student student = studentMapper.toStudentEntityWithBuilderIsActiveTrue(studentRequestDTO);
         Student savedStudent = studentRepository.save(student);
         return studentMapper.toStudentResponseDTO(savedStudent);
     }
