@@ -18,6 +18,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "db_users")
 @EntityListeners(AuditingEntityListener.class)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @AllArgsConstructor
