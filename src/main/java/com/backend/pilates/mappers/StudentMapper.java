@@ -6,6 +6,8 @@ import com.backend.pilates.model.Student;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.time.Instant;
+
 @Mapper(componentModel = "spring")
 public interface StudentMapper {
 
@@ -14,4 +16,14 @@ public interface StudentMapper {
     Student toStudentEntity(StudentRequestDTO studentRequestDTO);
 
     StudentResponseDTO toStudentResponseDTO(Student student);
+
+    default Student toStudentEntityWithBuilderIsActiveTrue(StudentRequestDTO studentRequestDTO) {
+        return Student.builder()
+                .first_name(studentRequestDTO.first_name())
+                .last_name(studentRequestDTO.last_name())
+                .phone(studentRequestDTO.phone())
+                .created_at(Instant.now())
+                .updated_at(Instant.now()).
+                build();
+    }
 }
