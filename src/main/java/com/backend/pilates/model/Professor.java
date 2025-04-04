@@ -12,7 +12,7 @@ import java.time.Instant;
 //não tem o campo id pq o JOINED da superclasse faz o id como fk e pk
 
 @Entity
-@Table(name = "db_professors")
+@Table(name = "professors")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
