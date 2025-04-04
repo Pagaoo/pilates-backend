@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.Instant;
 
 @Entity
-@Table(name = "db_students")
+@Table(name = "students")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
