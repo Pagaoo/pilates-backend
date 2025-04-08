@@ -2,6 +2,7 @@ package com.backend.pilates.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,12 +26,15 @@ public class Classes {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "professor_id", nullable = false)
+    @NotNull
     private Professor professor;
     @ManyToOne
     @JoinColumn(name = "day_of_the_week_id", nullable = false)
+    @NotNull
     private DaysOfTheWeek day_of_the_week;
     @ManyToOne
     @JoinColumn(name = "hour_time_id", nullable = false)
+    @NotNull
     private HourTime hour_time;
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")

@@ -23,4 +23,6 @@ public class HourTime {
     @Schema(description = "Horas do dia que tem aula",
     example = "NOVE_HORAS")
     private HourTimeEnum hourTime;
+    @Column(nullable = false, length = 5)
+    private String displayHourTime;
 }
