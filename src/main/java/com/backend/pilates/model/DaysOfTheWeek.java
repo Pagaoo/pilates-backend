@@ -24,4 +24,6 @@ public class DaysOfTheWeek {
             example = "SEGUNDA",
             allowableValues = {"SEGUNDA", "TERCA", "QUARTA", "QUINTA", "SEXTA"})
     private DaysOfWeekEnum dayOfTheWeek;
+    @Column(nullable = false, length = 15)
+    private String dayOfTheWeekDisplay;
 }
