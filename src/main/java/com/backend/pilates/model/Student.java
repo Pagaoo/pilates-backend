@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
@@ -34,6 +35,8 @@ public class Student {
     @Column(nullable = false)
     @Builder.Default
     private Boolean is_active = true;
+    @OneToMany(mappedBy = "student")
+    private List<Enrollments> enrollments;
     @CreatedDate
     @Column(nullable = false, updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
