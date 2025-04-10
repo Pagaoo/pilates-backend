@@ -3,6 +3,7 @@ package com.backend.pilates.controllers;
 
 import com.backend.pilates.dtos.request.student.StudentRequestDTO;
 import com.backend.pilates.dtos.request.student.StudentRequestUpdateNamesDTO;
+import com.backend.pilates.dtos.request.student.StudentRequestUpdatePhoneDTO;
 import com.backend.pilates.dtos.response.StudentResponseDTO;
 import com.backend.pilates.services.StudentService;
 import jakarta.validation.Valid;
@@ -33,9 +34,21 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body(students);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<StudentResponseDTO> update(@PathVariable Long id, @RequestBody @Valid StudentRequestUpdateNamesDTO studentRequestUpdateNamesDTO) {
-        StudentResponseDTO student = studentService.updateStudentById(id, studentRequestUpdateNamesDTO);
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentResponseDTO> getStudentById(@PathVariable Long id) {
+        StudentResponseDTO student = studentService.getStudentById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(student);
+    }
+
+    @PatchMapping("names/{id}")
+    public ResponseEntity<StudentResponseDTO> updateStudentNames(@PathVariable Long id, @RequestBody @Valid StudentRequestUpdateNamesDTO studentRequestUpdateNamesDTO) {
+        StudentResponseDTO student = studentService.updateStudentNamesById(id, studentRequestUpdateNamesDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(student);
+    }
+
+    @PatchMapping("phone/{id}")
+    public ResponseEntity<StudentResponseDTO> updateStudentPhoneByStudentId(@PathVariable Long id, @RequestBody @Valid StudentRequestUpdatePhoneDTO studentRequestUpdatePhoneDTO) {
+        StudentResponseDTO student = studentService.updateStudentPhoneByStudentId(id, studentRequestUpdatePhoneDTO);
         return ResponseEntity.status(HttpStatus.OK).body(student);
     }
 }
