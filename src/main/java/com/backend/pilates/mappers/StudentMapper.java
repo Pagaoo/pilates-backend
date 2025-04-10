@@ -1,6 +1,6 @@
 package com.backend.pilates.mappers;
 
-import com.backend.pilates.dtos.request.student_request.StudentRequestDTO;
+import com.backend.pilates.dtos.request.student.StudentRequestDTO;
 import com.backend.pilates.dtos.response.StudentResponseDTO;
 import com.backend.pilates.model.Student;
 import org.mapstruct.Mapper;
