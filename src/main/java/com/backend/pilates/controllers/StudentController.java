@@ -1,7 +1,8 @@
 package com.backend.pilates.controllers;
 
-import com.backend.pilates.dtos.request.student_request.StudentRequestDTO;
-import com.backend.pilates.dtos.request.student_request.StudentRequestUpdateNamesDTO;
+
+import com.backend.pilates.dtos.request.student.StudentRequestDTO;
+import com.backend.pilates.dtos.request.student.StudentRequestUpdateNamesDTO;
 import com.backend.pilates.dtos.response.StudentResponseDTO;
 import com.backend.pilates.services.StudentService;
 import jakarta.validation.Valid;
