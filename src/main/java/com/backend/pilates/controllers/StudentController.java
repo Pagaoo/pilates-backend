@@ -30,11 +30,11 @@ public class StudentController {
 
     //quando implementar as exceções voltar aqui e complementar a documentação com os response das exceções
 
-    @Operation(
+  @Operation(
             summary = "Create new student",
             description = """
                     Performs a creation of a new student entity in the database.
-                    
+                  
                     Business Rules:
                     - Phone must be unique across the system;
                     - Create a new Student entity in the database;
