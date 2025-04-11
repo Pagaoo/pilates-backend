@@ -52,4 +52,13 @@ public class StudentService {
         Student updatedStudent = studentRepository.save(existingStudent);
         return studentMapper.toStudentResponseDTO(updatedStudent);
     }
+
+    @Transactional
+    public StudentResponseDTO deactivateStudentById(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        student.setIs_active(false);
+        student.setUpdated_at(Instant.now());
+        studentRepository.save(student);
+        return studentMapper.toStudentResponseDTO(student);
+    }
 }
