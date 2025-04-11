@@ -75,6 +75,7 @@ public class StudentController {
                         - Data remains in the database;
                         - A scheduled job perform a permanent deletion of inactive students after 90 days;
                         - Confirmation response (body response)
+
                     """,
             responses = {
                     @ApiResponse(
