@@ -1,4 +1,4 @@
-package com.backend.pilates.dtos.request.student;
+package com.backend.pilates.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
 
