@@ -25,6 +25,23 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    @Operation(
+            summary = "Create new student",
+            description = """
+                    Performs a creation of a new student entity in the database.
+                    
+                    Importante notes:
+                    - Create a new Student entity in the database;
+                    - Confirmation response (body response)
+                    """,
+            responses = {
+                    @ApiResponse(
+                        responseCode = "201",
+                        description = "Student created (body response)"),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Erro while creating student (error response)")
+            })
     @PostMapping
     public ResponseEntity<StudentResponseDTO> create(@RequestBody @Valid StudentRequestDTO studentRequestDTO) {
         StudentResponseDTO student = studentService.createStudent(studentRequestDTO);
@@ -57,7 +74,7 @@ public class StudentController {
                         Important notes:
                         - Data remains in the database;
                         - A scheduled job perform a permanent deletion of inactive students after 90 days;
-                        - No confirmation response (silent operation)
+                        - Confirmation response (body response)
                     """,
             responses = {
                     @ApiResponse(
