@@ -13,26 +13,26 @@ import java.time.Instant;
 public interface StudentMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "created_at", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
     Student toStudentEntity(StudentRequestDTO studentRequestDTO);
 
     StudentResponseDTO toStudentResponseDTO(Student student);
 
-    @Mapping(target = "first_name",
-            expression = "java(shouldUpdateStudent(studentRequestUpdateNamesDTO.first_name(), student.getFirst_name()))")
-    @Mapping(target = "last_name",
-            expression = "java(shouldUpdateStudent(studentRequestUpdateNamesDTO.last_name(), student.getLast_name()))")
+    @Mapping(target = "firstName",
+            expression = "java(shouldUpdateStudent(studentRequestUpdateNamesDTO.firstName(), student.getFirstName()))")
+    @Mapping(target = "lastName",
+            expression = "java(shouldUpdateStudent(studentRequestUpdateNamesDTO.lastName(), student.getLastName()))")
     @Mapping(target = "phone",
             expression = "java(shouldUpdateStudent(studentRequestUpdateNamesDTO.phone(), student.getPhone()))")
     void updateStudentNamesFromDTO(StudentRequestDTO studentRequestUpdateNamesDTO, @MappingTarget Student student);
 
     default Student toStudentEntityWithBuilderIsActiveTrue(StudentRequestDTO studentRequestDTO) {
         return Student.builder()
-                .first_name(studentRequestDTO.first_name())
-                .last_name(studentRequestDTO.last_name())
+                .firstName(studentRequestDTO.firstName())
+                .lastName(studentRequestDTO.lastName())
                 .phone(studentRequestDTO.phone())
-                .created_at(Instant.now())
-                .updated_at(Instant.now()).
+                .createdAt(Instant.now())
+                .updatedAt(Instant.now()).
                 build();
     }
 

@@ -32,19 +32,19 @@ public class Classes {
     @ManyToOne
     @JoinColumn(name = "day_of_the_week_id", nullable = false)
     @NotNull
-    private DaysOfTheWeek day_of_the_week;
+    private DaysOfTheWeek daysOfTheWeek;
     @ManyToOne
     @JoinColumn(name = "hour_time_id", nullable = false)
     @NotNull
-    private HourTime hour_time;
+    private HourTime hourTime;
     @OneToMany(mappedBy = "classes")
     private List<Enrollments> enrollments;
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(nullable = false, updatable = false)
-    private Instant created_at;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
     @LastModifiedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(nullable = false)
-    private Instant updated_at;
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
 }

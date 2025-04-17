@@ -1,12 +1,14 @@
 package com.backend.pilates.dtos.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.Instant;
 
 public record ProfessorResponseDTO(Long id,
-                                   String first_name,
-                                   String last_name,
+                                   String firstName,
+                                   String lastName,
                                    String email,
                                    Long role_id,
-                                   Instant created_at,
-                                   Instant updated_at) {
+                                   @JsonProperty Instant createdAt,
+                                   @JsonProperty Instant updatedAt) {
 }

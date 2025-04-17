@@ -13,15 +13,15 @@ import org.mapstruct.Mapping;
 public interface ClassesMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "created_at", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "professor", source = "professor_id")
-    @Mapping(target = "day_of_the_week", source = "day_id")
-    @Mapping(target = "hour_time", source = "hour_id")
+    @Mapping(target = "daysOfTheWeek", source = "day_id")
+    @Mapping(target = "hourTime", source = "hour_id")
     Classes toClassesEntity(ClassesRequestDTO classesRequestDTO);
 
     @Mapping(target = "professor_id", source = "professor.id")
-    @Mapping(target = "day_id", source = "day_of_the_week.id")
-    @Mapping(target = "hour_id", source = "hour_time.id")
+    @Mapping(target = "day_id", source = "daysOfTheWeek.id")
+    @Mapping(target = "hour_id", source = "hourTime.id")
     ClassesResponseDTO toClassesResponseDTO(Classes classes);
 
     default Professor mapProfessors(Long professor_id) {

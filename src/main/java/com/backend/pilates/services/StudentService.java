@@ -7,11 +7,11 @@ import com.backend.pilates.model.Student;
 import com.backend.pilates.repositories.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -30,10 +30,9 @@ public class StudentService {
         return studentMapper.toStudentResponseDTO(savedStudent);
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public List<StudentResponseDTO> getAllStudents() {
-        List<Student> students = studentRepository.findAll();
-        return students.stream().map(studentMapper::toStudentResponseDTO).collect(Collectors.toList());
+        return studentRepository.findAll().stream().map(studentMapper::toStudentResponseDTO).toList();
     }
 
     @Transactional
@@ -45,10 +44,9 @@ public class StudentService {
     @Transactional
     public StudentResponseDTO updateStudentById(Long id, StudentRequestDTO studentRequestDTO) {
         Student existingStudent = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-
-        //BeanUtils.copyProperties(studentRequestUpdateNamesDTO, existingStudent, "id", "created_at", "phone", "is_active");
+        
         studentMapper.updateStudentNamesFromDTO(studentRequestDTO, existingStudent);
-        existingStudent.setUpdated_at(Instant.now());
+        existingStudent.setUpdatedAt(Instant.now());
         Student updatedStudent = studentRepository.save(existingStudent);
         return studentMapper.toStudentResponseDTO(updatedStudent);
     }
@@ -56,8 +54,8 @@ public class StudentService {
     @Transactional
     public StudentResponseDTO deactivateStudentById(Long id) {
         Student student = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        student.setIs_active(false);
-        student.setUpdated_at(Instant.now());
+        student.setIsActive(false);
+        student.setUpdatedAt(Instant.now());
         studentRepository.save(student);
         return studentMapper.toStudentResponseDTO(student);
     }

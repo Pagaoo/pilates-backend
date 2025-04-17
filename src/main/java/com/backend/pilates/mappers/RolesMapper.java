@@ -10,7 +10,8 @@ import org.mapstruct.Mapping;
 public interface RolesMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "created_at", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Roles toRolesEntity(RolesRequestDTO dto);
 
     RolesResponseDTO toRolesResponseDTO(Roles roles);

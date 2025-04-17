@@ -31,10 +31,10 @@ public class Enrollments {
     private Classes classes;
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(nullable = false, updatable = false)
-    private Instant created_at;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
     @LastModifiedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(nullable = false)
-    private Instant updated_at;
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
 }
