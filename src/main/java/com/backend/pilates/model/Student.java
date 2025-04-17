@@ -24,25 +24,25 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    @Column(nullable = false, length = 30)
-    private String first_name;
+    @Column(name = "first_name", nullable = false, length = 30)
+    private String firstName;
     @NotBlank
-    @Column(nullable = false, length = 30)
-    private String last_name;
+    @Column(name = "last_name", nullable = false, length = 30)
+    private String lastName;
     @NotBlank
     @Column(nullable = false, length = 15, unique = true)
     private String phone;
-    @Column(nullable = false)
+    @Column(name = "is_active", nullable = false)
     @Builder.Default
-    private Boolean is_active = true;
+    private Boolean isActive = true;
     @OneToMany(mappedBy = "student")
     private List<Enrollments> enrollments;
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    private Instant created_at;
+    private Instant createdAt;
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column(name = "updated_at", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    private Instant updated_at;
+    private Instant updatedAt;
 }

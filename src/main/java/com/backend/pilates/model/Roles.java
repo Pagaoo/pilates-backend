@@ -39,12 +39,12 @@ public class Roles {
     private String description;
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     //como são para fins de auditoria, horários em UTC
-    private Instant created_at;
+    private Instant createdAt;
     @LastModifiedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(nullable = false)
+    @Column(name = "updated_at", nullable = false)
     //como são para fins de auditoria, horários em UTC
-    private Instant updated_at;
+    private Instant updatedAt;
 }

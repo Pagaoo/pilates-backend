@@ -27,12 +27,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, length = 30)
+    @Column(name = "first_name", nullable = false, length = 30)
     @NotBlank
-    private String first_name;
-    @Column(nullable = false, length = 30)
+    private String firstName;
+    @Column(name = "last_name", nullable = false, length = 30)
     @NotBlank
-    private String last_name;
+    private String lastName;
     @Column(nullable = false, unique = true, length = 100)
     @NotBlank
     @Email
@@ -46,12 +46,12 @@ public class User {
     private Roles role;
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     //como são para fins de auditoria, horários em UTC
-    private Instant created_at;
+    private Instant createdAt;
     @LastModifiedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(nullable = false)
+    @Column(name = "updated_at", nullable = false)
     //como são para fins de auditoria, horários em UTC
-    private Instant updated_at;
+    private Instant updatedAt;
 }

@@ -19,16 +19,16 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Professor extends User {
-    @Column(nullable = false, columnDefinition = "TEXT", length = 150)
-    private String professor_bio;
-    @Column(nullable = false, length = 25)
-    private String professor_specialization;
+    @Column(name = "professor_bio", nullable = false, columnDefinition = "TEXT", length = 150)
+    private String professorBio;
+    @Column(name = "professor_specialization", nullable = false, length = 25)
+    private String professorSpecialization;
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(nullable = false, updatable = false)
-    private Instant created_at;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
     @LastModifiedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    @Column(nullable = false)
-    private Instant updated_at;
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
 }

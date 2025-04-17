@@ -12,7 +12,7 @@ import org.mapstruct.Named;
 public interface ProfessorMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "created_at", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "role", source = "role_id", qualifiedByName = "idToRole")
     Professor toProfessorEntity(ProfessorRequestDTO professorRequestDTO);
 

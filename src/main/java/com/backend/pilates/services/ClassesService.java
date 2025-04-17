@@ -40,8 +40,8 @@ public class ClassesService {
 
         Classes newClass = classesMapper.toClassesEntity(classesRequestDTO);
         newClass.setProfessor(professor_id);
-        newClass.setDay_of_the_week(daysOfTheWeek_id);
-        newClass.setHour_time(hourTime_id);
+        newClass.setDaysOfTheWeek(daysOfTheWeek_id);
+        newClass.setHourTime(hourTime_id);
         Classes savedClass = classesRepository.save(newClass);
         return classesMapper.toClassesResponseDTO(savedClass);
     }

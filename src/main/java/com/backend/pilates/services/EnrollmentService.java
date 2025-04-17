@@ -45,8 +45,8 @@ public class EnrollmentService {
                     Enrollments enrollments = new Enrollments();
                     enrollments.setStudent(student);
                     enrollments.setClasses(classes);
-                    enrollments.setCreated_at(Instant.now());
-                    enrollments.setUpdated_at(Instant.now());
+                    enrollments.setCreatedAt(Instant.now());
+                    enrollments.setUpdatedAt(Instant.now());
                     return enrollments;
                 }).filter(Objects::nonNull).toList();
         List<Enrollments> savedEnrollments = enrollmentRepository.saveAll(enrollmentsList);
