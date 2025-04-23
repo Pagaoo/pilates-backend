@@ -41,6 +41,32 @@ public class ProfessorController {
     }
 
     @Operation(
+            summary = "Get a professor by his id",
+            description =
+                    """
+                    Performs a search to return one professor by his id.
+                    
+                    System behavior:
+                    - Get a professor by his id;
+                    """,
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Show the professor found by the id"),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "The server could not found the professor by the id provided"),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "The server was not able to process the information")
+            })
+    @GetMapping("/{id}")
+    public ResponseEntity<ProfessorResponseDTO> getProfessorById(@PathVariable Long id) {
+        ProfessorResponseDTO professor = professorService.getProfessorById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(professor);
+    }
+
+    @Operation(
             summary = "Update professor information",
             operationId = "patchProfessorInfo ",
             description =
