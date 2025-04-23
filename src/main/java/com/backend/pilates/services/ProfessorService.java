@@ -1,6 +1,7 @@
 package com.backend.pilates.services;
 
 import com.backend.pilates.dtos.request.ProfessorRequestDTO;
+import com.backend.pilates.dtos.request.ProfessorRequestUpdateDetailsDTO;
 import com.backend.pilates.dtos.response.ProfessorResponseDTO;
 import com.backend.pilates.mappers.ProfessorMapper;
 import com.backend.pilates.model.Professor;
@@ -9,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -38,4 +40,14 @@ public class ProfessorService {
     public List<ProfessorResponseDTO> findAllProfessors() {
         return professorRepository.findAll().stream().map(professorMapper::toProfessorResponseDTO).toList();
     }
+
+    @Transactional
+    public ProfessorResponseDTO updateProfessorDetailsById(Long id, ProfessorRequestUpdateDetailsDTO professorRequestUpdateDetailsDTO) {
+        Professor existingProfessor = professorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        professorMapper.updateProfessorDetailsFromDTO(professorRequestUpdateDetailsDTO, existingProfessor);
+        existingProfessor.setUpdatedAt(Instant.now());
+        Professor updatedProfessor = professorRepository.save(existingProfessor);
+        return professorMapper.toProfessorResponseDTO(updatedProfessor);
+    }
+
 }
