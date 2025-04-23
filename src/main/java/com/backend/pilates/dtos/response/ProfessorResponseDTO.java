@@ -9,6 +9,8 @@ public record ProfessorResponseDTO(Long id,
                                    String lastName,
                                    String email,
                                    Long role_id,
+                                   String professorBio,
+                                   String professorSpecialization,
                                    @JsonProperty Instant createdAt,
                                    @JsonProperty Instant updatedAt) {
 }
