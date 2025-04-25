@@ -1,6 +1,5 @@
 package com.backend.pilates.mappers;
 
-import com.backend.pilates.dtos.request.ProfessorRequestChangePasswordDTO;
 import com.backend.pilates.dtos.request.ProfessorRequestDTO;
 import com.backend.pilates.dtos.request.ProfessorRequestUpdateDetailsDTO;
 import com.backend.pilates.dtos.response.ProfessorResponseChangedPasswordDTO;
@@ -26,18 +25,17 @@ public interface ProfessorMapper {
     ProfessorResponseChangedPasswordDTO toProfessorChangePasswordDTO(Professor professor);
 
     @Mapping(target = "firstName",
-            expression = "java(shouldUpdateProfessorNamesAndBioAndSpecialization(professorRequestUpdateDetailsDTO.firstName(), professor.getFirstName()))")
+            expression = "java(getNonPlaceholderValues(professorRequestUpdateDetailsDTO.firstName(), professor.getFirstName()))")
     @Mapping(target = "lastName",
-            expression = "java(shouldUpdateProfessorNamesAndBioAndSpecialization(professorRequestUpdateDetailsDTO.lastName(), professor.getLastName()))")
+            expression = "java(getNonPlaceholderValues(professorRequestUpdateDetailsDTO.lastName(), professor.getLastName()))")
     @Mapping(target = "professorBio",
-            expression = "java(shouldUpdateProfessorNamesAndBioAndSpecialization(professorRequestUpdateDetailsDTO.professorBio(), professor.getProfessorBio()))")
+            expression = "java(getNonPlaceholderValues(professorRequestUpdateDetailsDTO.professorBio(), professor.getProfessorBio()))")
     @Mapping(target = "professorSpecialization",
-            expression = "java(shouldUpdateProfessorNamesAndBioAndSpecialization(professorRequestUpdateDetailsDTO.professorSpecialization(), professor.getProfessorSpecialization()))")
+            expression = "java(getNonPlaceholderValues(professorRequestUpdateDetailsDTO.professorSpecialization(), professor.getProfessorSpecialization()))")
     void updateProfessorDetailsFromDTO(ProfessorRequestUpdateDetailsDTO professorRequestUpdateDetailsDTO, @MappingTarget Professor professor);
 
-    @Mapping(target = "password",
-            expression = "java(shouldChangeProfessorPassword(professorRequestChangePasswordDTO.password(), professor.getPassword()))")
-    void changeProfessorPassword(ProfessorRequestChangePasswordDTO professorRequestChangePasswordDTO, @MappingTarget Professor professor);
+    @Mapping(target = "password", source = "newPassword")
+    void updatePassword(String newPassword, @MappingTarget Professor professor);
 
     @Named("idToRole")
     default Roles idToRole(Long id) {
@@ -47,12 +45,8 @@ public interface ProfessorMapper {
         return role;
     }
 
-    default String shouldUpdateProfessorNamesAndBioAndSpecialization(String newValue, String currentValue) {
+    default String getNonPlaceholderValues(String newValue, String currentValue) {
         return (newValue != null && !newValue.equals("string") && !newValue.trim().isEmpty()) ? newValue : currentValue;
-    }
-
-    default String shouldChangeProfessorPassword(String newPassword, String currentPassword) {
-        return (newPassword != null && !newPassword.equals("string") && !newPassword.trim().isEmpty()) ? newPassword : currentPassword;
     }
 }
 
