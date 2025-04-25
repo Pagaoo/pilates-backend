@@ -1,7 +1,9 @@
 package com.backend.pilates.mappers;
 
+import com.backend.pilates.dtos.request.ProfessorRequestChangePasswordDTO;
 import com.backend.pilates.dtos.request.ProfessorRequestDTO;
 import com.backend.pilates.dtos.request.ProfessorRequestUpdateDetailsDTO;
+import com.backend.pilates.dtos.response.ProfessorResponseChangedPasswordDTO;
 import com.backend.pilates.dtos.response.ProfessorResponseDTO;
 import com.backend.pilates.model.Professor;
 import com.backend.pilates.model.Roles;
@@ -21,6 +23,8 @@ public interface ProfessorMapper {
     @Mapping(target = "role_id", source = "role.id")
     ProfessorResponseDTO toProfessorResponseDTO(Professor professor);
 
+    ProfessorResponseChangedPasswordDTO toProfessorChangePasswordDTO(Professor professor);
+
     @Mapping(target = "firstName",
             expression = "java(shouldUpdateProfessorNamesAndBioAndSpecialization(professorRequestUpdateDetailsDTO.firstName(), professor.getFirstName()))")
     @Mapping(target = "lastName",
@@ -30,6 +34,10 @@ public interface ProfessorMapper {
     @Mapping(target = "professorSpecialization",
             expression = "java(shouldUpdateProfessorNamesAndBioAndSpecialization(professorRequestUpdateDetailsDTO.professorSpecialization(), professor.getProfessorSpecialization()))")
     void updateProfessorDetailsFromDTO(ProfessorRequestUpdateDetailsDTO professorRequestUpdateDetailsDTO, @MappingTarget Professor professor);
+
+    @Mapping(target = "password",
+            expression = "java(shouldChangeProfessorPassword(professorRequestChangePasswordDTO.password(), professor.getPassword()))")
+    void changeProfessorPassword(ProfessorRequestChangePasswordDTO professorRequestChangePasswordDTO, @MappingTarget Professor professor);
 
     @Named("idToRole")
     default Roles idToRole(Long id) {
@@ -41,6 +49,10 @@ public interface ProfessorMapper {
 
     default String shouldUpdateProfessorNamesAndBioAndSpecialization(String newValue, String currentValue) {
         return (newValue != null && !newValue.equals("string") && !newValue.trim().isEmpty()) ? newValue : currentValue;
+    }
+
+    default String shouldChangeProfessorPassword(String newPassword, String currentPassword) {
+        return (newPassword != null && !newPassword.equals("string") && !newPassword.trim().isEmpty()) ? newPassword : currentPassword;
     }
 }
 

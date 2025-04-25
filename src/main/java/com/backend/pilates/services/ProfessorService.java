@@ -1,7 +1,9 @@
 package com.backend.pilates.services;
 
+import com.backend.pilates.dtos.request.ProfessorRequestChangePasswordDTO;
 import com.backend.pilates.dtos.request.ProfessorRequestDTO;
 import com.backend.pilates.dtos.request.ProfessorRequestUpdateDetailsDTO;
+import com.backend.pilates.dtos.response.ProfessorResponseChangedPasswordDTO;
 import com.backend.pilates.dtos.response.ProfessorResponseDTO;
 import com.backend.pilates.mappers.ProfessorMapper;
 import com.backend.pilates.model.Professor;
@@ -48,6 +50,15 @@ public class ProfessorService {
         existingProfessor.setUpdatedAt(Instant.now());
         Professor updatedProfessor = professorRepository.save(existingProfessor);
         return professorMapper.toProfessorResponseDTO(updatedProfessor);
+    }
+
+    @Transactional
+    public ProfessorResponseChangedPasswordDTO changeProfessorPasswordById(Long id, ProfessorRequestChangePasswordDTO professorRequestChangePasswordDTO) {
+        Professor existingProfessor = professorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        professorMapper.changeProfessorPassword(professorRequestChangePasswordDTO, existingProfessor);
+        existingProfessor.setUpdatedAt(Instant.now());
+        Professor updatedProfessor = professorRepository.save(existingProfessor);
+        return professorMapper.toProfessorChangePasswordDTO(updatedProfessor);
     }
 
 }
