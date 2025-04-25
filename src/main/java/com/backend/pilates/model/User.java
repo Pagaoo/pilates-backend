@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +41,7 @@ public class User {
     @Column(nullable = false, length = 60)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank
+    @Size(min = 8, max = 60)
     private String password;
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)

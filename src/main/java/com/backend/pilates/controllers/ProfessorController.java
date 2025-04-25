@@ -116,8 +116,7 @@ public class ProfessorController {
             @Parameter(description = "Professor id", example = "123")
             @PathVariable Long id,
             @RequestBody @Valid ProfessorRequestUpdateDetailsDTO professorRequestUpdateDetailsDTO) {
-        ProfessorResponseDTO professor = professorService.updateProfessorDetailsById(id, professorRequestUpdateDetailsDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(professor);
+        return ResponseEntity.ok(professorService.updateProfessorDetails(id, professorRequestUpdateDetailsDTO));
     }
 
     @Operation(
@@ -164,7 +163,6 @@ public class ProfessorController {
             @Parameter(description = "Professor id", example = "123")
             @PathVariable Long id,
             @RequestBody @Valid ProfessorRequestChangePasswordDTO professorRequestChangePasswordDTO) {
-        ProfessorResponseChangedPasswordDTO changeProfessorPassword = professorService.changeProfessorPasswordById(id, professorRequestChangePasswordDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(changeProfessorPassword);
+        return ResponseEntity.ok(professorService.changePassword(id, professorRequestChangePasswordDTO));
     }
 }
