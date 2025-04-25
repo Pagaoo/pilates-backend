@@ -44,7 +44,7 @@ public class ProfessorService {
     }
 
     @Transactional
-    public ProfessorResponseDTO updateProfessorDetailsById(Long id, ProfessorRequestUpdateDetailsDTO professorRequestUpdateDetailsDTO) {
+    public ProfessorResponseDTO updateProfessorDetails(Long id, ProfessorRequestUpdateDetailsDTO professorRequestUpdateDetailsDTO) {
         Professor existingProfessor = professorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         professorMapper.updateProfessorDetailsFromDTO(professorRequestUpdateDetailsDTO, existingProfessor);
         existingProfessor.setUpdatedAt(Instant.now());
@@ -53,12 +53,29 @@ public class ProfessorService {
     }
 
     @Transactional
-    public ProfessorResponseChangedPasswordDTO changeProfessorPasswordById(Long id, ProfessorRequestChangePasswordDTO professorRequestChangePasswordDTO) {
-        Professor existingProfessor = professorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        professorMapper.changeProfessorPassword(professorRequestChangePasswordDTO, existingProfessor);
-        existingProfessor.setUpdatedAt(Instant.now());
-        Professor updatedProfessor = professorRepository.save(existingProfessor);
-        return professorMapper.toProfessorChangePasswordDTO(updatedProfessor);
-    }
+    public ProfessorResponseChangedPasswordDTO changePassword(Long id, ProfessorRequestChangePasswordDTO professorRequestChangePasswordDTO) {
+        Professor professor = professorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
+        if (!professorRequestChangePasswordDTO.currentPassword().equals(professor.getPassword())) {
+            throw new IllegalArgumentException("Senha atual incorreta");
+        }
+
+        if (!professorRequestChangePasswordDTO.newPassword().equals(professorRequestChangePasswordDTO.confirmNewPassword())) {
+            throw new IllegalArgumentException("Confirmação de senha inválida");
+        }
+
+        if (professorRequestChangePasswordDTO.newPassword().equals(professor.getPassword())) {
+            throw new IllegalArgumentException("Use senha diferente da atual");
+        }
+
+        professorMapper.updatePassword(professorRequestChangePasswordDTO.newPassword(), professor);
+        professor.setUpdatedAt(Instant.now());
+        professorRepository.save(professor);
+
+        return new ProfessorResponseChangedPasswordDTO(
+                true,
+                "Senha atualizada com sucesso",
+                professor.getUpdatedAt()
+        );
+    }
 }

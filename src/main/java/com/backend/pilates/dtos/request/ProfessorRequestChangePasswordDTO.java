@@ -1,4 +1,9 @@
 package com.backend.pilates.dtos.request;
 
-public record ProfessorRequestChangePasswordDTO(String password) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record ProfessorRequestChangePasswordDTO(@NotBlank String currentPassword,
+                                                @NotBlank @Size(min = 8) String newPassword,
+                                                @NotBlank String confirmNewPassword) {
 }
