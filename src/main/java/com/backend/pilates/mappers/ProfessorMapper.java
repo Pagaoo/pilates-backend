@@ -22,8 +22,6 @@ public interface ProfessorMapper {
     @Mapping(target = "role_id", source = "role.id")
     ProfessorResponseDTO toProfessorResponseDTO(Professor professor);
 
-    ProfessorResponseChangedPasswordDTO toProfessorChangePasswordDTO(Professor professor);
-
     @Mapping(target = "firstName",
             expression = "java(getNonPlaceholderValues(professorRequestUpdateDetailsDTO.firstName(), professor.getFirstName()))")
     @Mapping(target = "lastName",
