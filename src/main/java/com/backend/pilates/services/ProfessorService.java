@@ -78,4 +78,10 @@ public class ProfessorService {
                 professor.getUpdatedAt()
         );
     }
+
+    @Transactional
+    public void deleteProfessor(Long id) {
+        Professor professor = professorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        professorRepository.delete(professor);
+    }
 }
