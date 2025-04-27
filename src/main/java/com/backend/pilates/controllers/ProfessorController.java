@@ -165,4 +165,35 @@ public class ProfessorController {
             @RequestBody @Valid ProfessorRequestChangePasswordDTO professorRequestChangePasswordDTO) {
         return ResponseEntity.ok(professorService.changePassword(id, professorRequestChangePasswordDTO));
     }
+
+    @Operation(
+            summary = "Delete professor",
+            operationId = "deleteProfessor",
+            description =
+                    """
+                    Performs a delete of an existing professor in the database.
+                    
+                    System behavior:
+                    - delete an existing professor;
+                    """,
+            responses = {
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "Professor deleted successfully",
+                            content = @Content()
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Error deleting professor, professor not found"),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "The server was not able to process the information")
+            })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProfessor(
+            @Parameter(description = "professor id", example = "123")
+            @PathVariable Long id) {
+        professorService.deleteProfessor(id);
+        return ResponseEntity.noContent().build();
+    }
 }
