@@ -65,7 +65,7 @@ public class ProfessorService {
         }
 
         if (professorRequestChangePasswordDTO.newPassword().equals(professor.getPassword())) {
-            throw new IllegalArgumentException("Use senha diferente da atual");
+            throw new IllegalArgumentException("Use uma senha diferente da atual");
         }
 
         professorMapper.updatePassword(professorRequestChangePasswordDTO.newPassword(), professor);

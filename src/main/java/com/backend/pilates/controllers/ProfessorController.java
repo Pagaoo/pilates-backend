@@ -32,12 +32,87 @@ public class ProfessorController {
         this.professorService = professorService;
     }
 
+    @Operation(
+            summary = "Create a new professor",
+            description = """
+                    Performs a creation operation of a new professor entity in the database.
+                  
+                    Business Rules:
+                    - email must be unique across the system;
+                    - Create a new professor entity in the database;
+                    - Confirmation response (body response);
+                    
+                    System Behavior:
+                    - Generates unique Professor id;
+                    - Encrypt password;
+                    - Records creation timestamp;
+                    """,
+            responses = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Professor created successfully",
+                            content = @Content(
+                                    schema = @Schema(implementation = ProfessorResponseDTO.class),
+                                    examples = @ExampleObject(
+                                            value = """
+                                                {
+                                                    "id": 123345,
+                                                    "firstName": "John",
+                                                    "lastName": "Doe",
+                                                    "email": "email@example.com",
+                                                    "role_id": 1,
+                                                    "professorBio": "example",
+                                                    "professorSpecialization": "example"
+                                                    "created_at" "2025-11-21T10:30:00Z"
+                                                    "updated_at" "2025-11-21T10:30:00Z"
+                                                }
+                                                """))),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Erro while creating professor (error response)")
+            })
     @PostMapping
     public ResponseEntity<ProfessorResponseDTO> create(@Valid @RequestBody ProfessorRequestDTO requestDTO) {
         ProfessorResponseDTO createProfessor = professorService.createProfessor(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createProfessor);
     }
 
+    @Operation(
+            summary = "Get all professors from the database",
+            description =
+                    """
+                    Performs a get list of all professors in the database.
+                    
+                    System behavior:
+                    - List all professor in the database;
+                    """,
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "List all professors",
+                            content = @Content(
+                                    schema = @Schema(implementation = ProfessorResponseDTO.class),
+                                    examples = @ExampleObject(
+                                            value = """
+                                                {
+                                                    "id": 123345,
+                                                    "firstName": "John",
+                                                    "lastName": "Doe",
+                                                    "email": "email@example.com",
+                                                    "role_id": 1,
+                                                    "professorBio": "example",
+                                                    "professorSpecialization": "example"
+                                                    "created_at" "2025-11-21T10:30:00Z"
+                                                    "updated_at" "2025-11-21T10:30:00Z"
+                                                }
+                                                """))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "The server could not found any professors to return"),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "The server was not able to process the information")
+            })
     @GetMapping
     public ResponseEntity<List<ProfessorResponseDTO>> getAllProfessors() {
         List<ProfessorResponseDTO> professorResponseDTOList = professorService.findAllProfessors();
@@ -56,7 +131,23 @@ public class ProfessorController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Show the professor found by the id"),
+                            description = "Show the professor found by the id",
+                            content = @Content(
+                                    schema = @Schema(implementation = ProfessorResponseDTO.class),
+                                    examples = @ExampleObject(
+                                            value = """
+                                                {
+                                                    "id": 123345,
+                                                    "firstName": "John",
+                                                    "lastName": "Doe",
+                                                    "email": "email@example.com",
+                                                    "role_id": 1,
+                                                    "professorBio": "example",
+                                                    "professorSpecialization": "example"
+                                                    "created_at" "2025-11-21T10:30:00Z"
+                                                    "updated_at" "2025-11-21T10:30:00Z"
+                                                }
+                                                """))),
                     @ApiResponse(
                             responseCode = "404",
                             description = "The server could not found the professor by the id provided"),
