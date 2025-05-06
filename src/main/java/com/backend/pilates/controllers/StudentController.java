@@ -68,7 +68,7 @@ public class StudentController {
                             description = "Erro while creating student (error response)")
             })
     @PostMapping
-    public ResponseEntity<StudentResponseDTO> create(@RequestBody @Valid StudentRequestDTO studentRequestDTO) {
+    public ResponseEntity<StudentResponseDTO> createStudent(@RequestBody @Valid StudentRequestDTO studentRequestDTO) {
         StudentResponseDTO student = studentService.createStudent(studentRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(student);
     }
@@ -94,8 +94,8 @@ public class StudentController {
                             description = "The server was not able to process the information")
             })
     @GetMapping
-    public ResponseEntity<List<StudentResponseDTO>> getAllStudents() {
-        List<StudentResponseDTO> students = studentService.getAllStudents();
+    public ResponseEntity<List<StudentResponseDTO>> findAllStudents() {
+        List<StudentResponseDTO> students = studentService.findAllStudents();
         return ResponseEntity.status(HttpStatus.OK).body(students);
     }
 
@@ -121,8 +121,8 @@ public class StudentController {
                             description = "The server was not able to process the information")
             })
     @GetMapping("/{id}")
-    public ResponseEntity<StudentResponseDTO> getStudentById(@PathVariable Long id) {
-        StudentResponseDTO student = studentService.getStudentById(id);
+    public ResponseEntity<StudentResponseDTO> findStudentById(@PathVariable Long id) {
+        StudentResponseDTO student = studentService.findStudentById(id);
         return ResponseEntity.status(HttpStatus.OK).body(student);
     }
 

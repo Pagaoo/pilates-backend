@@ -2,7 +2,6 @@ package com.backend.pilates.mappers;
 
 import com.backend.pilates.dtos.request.ProfessorRequestDTO;
 import com.backend.pilates.dtos.request.ProfessorRequestUpdateDetailsDTO;
-import com.backend.pilates.dtos.response.ProfessorResponseChangedPasswordDTO;
 import com.backend.pilates.dtos.response.ProfessorResponseDTO;
 import com.backend.pilates.model.Professor;
 import com.backend.pilates.model.Roles;

@@ -72,7 +72,7 @@ public class ProfessorController {
                             description = "Erro while creating professor (error response)")
             })
     @PostMapping
-    public ResponseEntity<ProfessorResponseDTO> create(@Valid @RequestBody ProfessorRequestDTO requestDTO) {
+    public ResponseEntity<ProfessorResponseDTO> createProfessor(@Valid @RequestBody ProfessorRequestDTO requestDTO) {
         ProfessorResponseDTO createProfessor = professorService.createProfessor(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createProfessor);
     }
@@ -114,7 +114,7 @@ public class ProfessorController {
                             description = "The server was not able to process the information")
             })
     @GetMapping
-    public ResponseEntity<List<ProfessorResponseDTO>> getAllProfessors() {
+    public ResponseEntity<List<ProfessorResponseDTO>> findAllProfessors() {
         List<ProfessorResponseDTO> professorResponseDTOList = professorService.findAllProfessors();
         return ResponseEntity.status(HttpStatus.OK).body(professorResponseDTOList);
     }
@@ -156,8 +156,8 @@ public class ProfessorController {
                             description = "The server was not able to process the information")
             })
     @GetMapping("/{id}")
-    public ResponseEntity<ProfessorResponseDTO> getProfessorById(@PathVariable Long id) {
-        ProfessorResponseDTO professor = professorService.getProfessorById(id);
+    public ResponseEntity<ProfessorResponseDTO> findProfessorById(@PathVariable Long id) {
+        ProfessorResponseDTO professor = professorService.findProfessorById(id);
         return ResponseEntity.status(HttpStatus.OK).body(professor);
     }
 
@@ -250,7 +250,7 @@ public class ProfessorController {
                             description = "The server was not able to process the information")
             })
     @PatchMapping("/{id}/password")
-    public ResponseEntity<ProfessorResponseChangedPasswordDTO> updateProfessorPasswordById(
+    public ResponseEntity<ProfessorResponseChangedPasswordDTO> changePassword(
             @Parameter(description = "Professor id", example = "123")
             @PathVariable Long id,
             @RequestBody @Valid ProfessorRequestChangePasswordDTO professorRequestChangePasswordDTO) {

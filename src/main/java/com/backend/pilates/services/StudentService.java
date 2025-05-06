@@ -31,12 +31,12 @@ public class StudentService {
     }
 
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
-    public List<StudentResponseDTO> getAllStudents() {
+    public List<StudentResponseDTO> findAllStudents() {
         return studentRepository.findAll().stream().map(studentMapper::toStudentResponseDTO).toList();
     }
 
     @Transactional
-    public StudentResponseDTO getStudentById(Long id) {
+    public StudentResponseDTO findStudentById(Long id) {
         Student student = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return studentMapper.toStudentResponseDTO(student);
     }
