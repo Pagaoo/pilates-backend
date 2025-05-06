@@ -33,7 +33,7 @@ public class ProfessorService {
     }
 
     @Transactional
-    public ProfessorResponseDTO getProfessorById(Long id) {
+    public ProfessorResponseDTO findProfessorById(Long id) {
         Professor professor = professorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return professorMapper.toProfessorResponseDTO(professor);
     }

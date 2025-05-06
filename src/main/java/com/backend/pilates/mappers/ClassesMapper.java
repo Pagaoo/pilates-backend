@@ -8,6 +8,7 @@ import com.backend.pilates.model.HourTime;
 import com.backend.pilates.model.Professor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface ClassesMapper {
@@ -23,6 +24,8 @@ public interface ClassesMapper {
     @Mapping(target = "day_id", source = "daysOfTheWeek.id")
     @Mapping(target = "hour_id", source = "hourTime.id")
     ClassesResponseDTO toClassesResponseDTO(Classes classes);
+
+    void updateClassesDetailsFromDTO(ClassesRequestDTO classesRequestDTO, @MappingTarget Classes classes);
 
     default Professor mapProfessors(Long professor_id) {
         if (professor_id != null) {
