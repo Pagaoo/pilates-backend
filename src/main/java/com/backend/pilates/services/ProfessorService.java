@@ -32,13 +32,13 @@ public class ProfessorService {
         return professorMapper.toProfessorResponseDTO(professor);
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public ProfessorResponseDTO findProfessorById(Long id) {
         Professor professor = professorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return professorMapper.toProfessorResponseDTO(professor);
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public List<ProfessorResponseDTO> findAllProfessors() {
         return professorRepository.findAll().stream().map(professorMapper::toProfessorResponseDTO).toList();
     }
