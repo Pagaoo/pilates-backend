@@ -52,13 +52,13 @@ public class ClassesService {
         return classesMapper.toClassesResponseDTO(savedClass);
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public ClassesResponseDTO findClassById(Long classId) {
         Classes existingClass = classesRepository.findById(classId).orElseThrow(EntityNotFoundException::new);
         return classesMapper.toClassesResponseDTO(existingClass);
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public List<ClassesResponseDTO> findAllClasses() {
         return classesRepository.findAll().stream().map(classesMapper::toClassesResponseDTO).toList();
     }

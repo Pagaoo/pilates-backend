@@ -10,6 +10,7 @@ import com.backend.pilates.repositories.ClassesRepository;
 import com.backend.pilates.repositories.EnrollmentRepository;
 import com.backend.pilates.repositories.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -30,6 +31,7 @@ public class EnrollmentService {
         this.enrollmentMapper = enrollmentMapper;
     }
 
+    @Transactional
     public List<EnrollmentResponseDTO> createEnrollment(EnrollmentRequestDTO enrollmentRequestDTO) {
         Classes classes = classesRepository.findById(enrollmentRequestDTO.class_id())
                 .orElseThrow(EntityNotFoundException::new);
@@ -53,5 +55,16 @@ public class EnrollmentService {
         return savedEnrollments.stream()
                 .map(enrollmentMapper::toEnrollmentResponseDTO)
                 .toList();
+    }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<EnrollmentResponseDTO> findAllEnrollments() {
+        return enrollmentRepository.findAll().stream().map(enrollmentMapper::toEnrollmentResponseDTO).toList();
+    }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public EnrollmentResponseDTO findEnrollmentById(Long id) {
+        Enrollments existingEnrollment = enrollmentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return enrollmentMapper.toEnrollmentResponseDTO(existingEnrollment);
     }
 }

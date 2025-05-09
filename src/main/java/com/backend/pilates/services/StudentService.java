@@ -7,7 +7,6 @@ import com.backend.pilates.model.Student;
 import com.backend.pilates.repositories.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -35,7 +34,7 @@ public class StudentService {
         return studentRepository.findAll().stream().map(studentMapper::toStudentResponseDTO).toList();
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public StudentResponseDTO findStudentById(Long id) {
         Student student = studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return studentMapper.toStudentResponseDTO(student);
