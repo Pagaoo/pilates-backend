@@ -67,4 +67,10 @@ public class EnrollmentService {
         Enrollments existingEnrollment = enrollmentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return enrollmentMapper.toEnrollmentResponseDTO(existingEnrollment);
     }
+
+    @Transactional
+    public void deleteEnrollment(Long id) {
+        Enrollments enrollmentToDelete = enrollmentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        enrollmentRepository.delete(enrollmentToDelete);
+    }
 }
