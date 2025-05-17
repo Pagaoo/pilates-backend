@@ -33,14 +33,14 @@ jobs:
       GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
     steps:
-      - name: Aplicar labels com base no título
-        if: startsWith(github.event.pull_request.title, 'feature:')
+      - name: Aplicar label feature
+        if: startsWith(toLower(github.event.pull_request.title), 'feature:')
         run: gh pr edit ${{ github.event.pull_request.number }} --add-label "feature"
 
-      - name: Aplicar labels com base no título
-        if: startsWith(github.event.pull_request.title, 'fix:')
+      - name: Aplicar label fix
+        if: startsWith(toLower(github.event.pull_request.title), 'fix:')
         run: gh pr edit ${{ github.event.pull_request.number }} --add-label "fix"
 
-      - name: Aplicar labels com base no título
-        if: startsWith(github.event.pull_request.title, 'chore:')
+      - name: Aplicar label chore
+        if: startsWith(toLower(github.event.pull_request.title), 'chore:')
         run: gh pr edit ${{ github.event.pull_request.number }} --add-label "chore"
