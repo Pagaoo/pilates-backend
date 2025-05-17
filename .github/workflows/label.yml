@@ -21,3 +21,22 @@ jobs:
     - uses: actions/labeler@v4
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
+
+  label-by-title:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Aplicar labels com base no título
+        if: startsWith(github.event.pull_request.title, '[FEATURE]')
+        run: gh pr edit ${{ github.event.pull_request.number }} --add-label "feature"
+
+      - name: Aplicar labels com base no título
+        if: startsWith(github.event.pull_request.title, '[FIX]')
+        run: gh pr edit ${{ github.event.pull_request.number }} --add-label "fix"
+
+      - name: Aplicar labels com base no título
+        if: startsWith(github.event.pull_request.title, '[CHORE]')
+        run: gh pr edit ${{ github.event.pull_request.number }} --add-label "chore"
