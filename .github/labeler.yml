@@ -11,11 +11,11 @@ configuration:
   - "src/main/resources/application.properties"
   - "src/main/resources/application.properties-*"
 
-docs:
+documentation:
   - "README.md"
   - "docs/**"
 
-migration:
+migrations:
   - "src/main/resources/db/**"
 
 ci-cd:
