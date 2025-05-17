@@ -6,10 +6,7 @@ import com.backend.pilates.services.EnrollmentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +21,25 @@ public class EnrollmentController {
 
     @PostMapping
     public ResponseEntity<List<EnrollmentResponseDTO>> createEnrollment(@RequestBody @Valid EnrollmentRequestDTO enrollmentRequestDTO) {
-        List<EnrollmentResponseDTO> enrollments = enrollmentService.createEnrollment(enrollmentRequestDTO);
+        List<EnrollmentResponseDTO> enrollments = enrollmentService.addStudentToClass(enrollmentRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(enrollments);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> removeStudentFromClass(@RequestBody @Valid EnrollmentRequestDTO enrollmentRequestDTO) {
+        enrollmentService.removeStudentFromClass(enrollmentRequestDTO);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<EnrollmentResponseDTO>> getAllEnrollments() {
+        enrollmentService.findAllEnrollments();
+        return ResponseEntity.ok(enrollmentService.findAllEnrollments());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EnrollmentResponseDTO> getEnrollmentById(@PathVariable Long id) {
+        EnrollmentResponseDTO enrollmentDTO = enrollmentService.findEnrollmentById(id);
+        return ResponseEntity.ok(enrollmentDTO);
     }
 }

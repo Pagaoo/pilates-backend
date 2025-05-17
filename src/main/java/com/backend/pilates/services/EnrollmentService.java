@@ -32,7 +32,7 @@ public class EnrollmentService {
     }
 
     @Transactional
-    public List<EnrollmentResponseDTO> createEnrollment(EnrollmentRequestDTO enrollmentRequestDTO) {
+    public List<EnrollmentResponseDTO> addStudentToClass(EnrollmentRequestDTO enrollmentRequestDTO) {
         Classes classes = classesRepository.findById(enrollmentRequestDTO.class_id())
                 .orElseThrow(EntityNotFoundException::new);
 
@@ -57,6 +57,21 @@ public class EnrollmentService {
                 .toList();
     }
 
+    @Transactional
+    public void removeStudentFromClass(EnrollmentRequestDTO enrollmentRequestDTO) {
+        Classes existingClass = classesRepository.findById(enrollmentRequestDTO.class_id()).orElseThrow(EntityNotFoundException::new);
+
+        for (Long student_id : enrollmentRequestDTO.student_id()) {
+            Student student = studentRepository.findById(student_id).orElseThrow(EntityNotFoundException::new);
+
+            Enrollments studentsToRemove = enrollmentRepository.findByStudentAndClasses(student, existingClass);
+            if (studentsToRemove == null) {
+                throw new EntityNotFoundException("Enrollment not found for this student in the specified class");
+            }
+            enrollmentRepository.delete(studentsToRemove);
+        }
+    }
+
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public List<EnrollmentResponseDTO> findAllEnrollments() {
         return enrollmentRepository.findAll().stream().map(enrollmentMapper::toEnrollmentResponseDTO).toList();
@@ -66,11 +81,5 @@ public class EnrollmentService {
     public EnrollmentResponseDTO findEnrollmentById(Long id) {
         Enrollments existingEnrollment = enrollmentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return enrollmentMapper.toEnrollmentResponseDTO(existingEnrollment);
-    }
-
-    @Transactional
-    public void deleteEnrollment(Long id) {
-        Enrollments enrollmentToDelete = enrollmentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        enrollmentRepository.delete(enrollmentToDelete);
     }
 }
