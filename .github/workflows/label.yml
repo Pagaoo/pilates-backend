@@ -28,6 +28,9 @@ jobs:
       pull-requests: write
       contents: read
 
+    env:
+      GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
     steps:
       - name: Aplicar labels com base no título
         if: startsWith(github.event.pull_request.title, 'feature:')
