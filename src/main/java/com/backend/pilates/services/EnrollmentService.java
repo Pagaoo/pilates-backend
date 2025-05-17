@@ -79,7 +79,7 @@ public class EnrollmentService {
 
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public EnrollmentResponseDTO findEnrollmentById(Long id) {
-        Enrollments existingEnrollment = enrollmentRepository.findById(id).orElseThrow();
+        Enrollments existingEnrollment = enrollmentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return enrollmentMapper.toEnrollmentResponseDTO(existingEnrollment);
     }
 }
