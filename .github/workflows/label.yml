@@ -30,13 +30,13 @@ jobs:
 
     steps:
       - name: Aplicar labels com base no título
-        if: startsWith(github.event.pull_request.title, '[FEATURE]')
+        if: startsWith(github.event.pull_request.title, 'feature:')
         run: gh pr edit ${{ github.event.pull_request.number }} --add-label "feature"
 
       - name: Aplicar labels com base no título
-        if: startsWith(github.event.pull_request.title, '[FIX]')
+        if: startsWith(github.event.pull_request.title, 'fix:')
         run: gh pr edit ${{ github.event.pull_request.number }} --add-label "fix"
 
       - name: Aplicar labels com base no título
-        if: startsWith(github.event.pull_request.title, '[CHORE]')
+        if: startsWith(github.event.pull_request.title, 'chore:')
         run: gh pr edit ${{ github.event.pull_request.number }} --add-label "chore"
