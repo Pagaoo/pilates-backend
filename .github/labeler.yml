@@ -1,0 +1,22 @@
+backend:
+  - "src/main/java/**"
+  - "src/main/resources/**"
+  - "src/main/**"
+
+tests:
+  - "src/test/java/**"
+  - "src/test/resources/**"
+
+configuration:
+  - "src/main/resources/application.properties"
+  - "src/main/resources/application.properties-*"
+
+docs:
+  - "README.md"
+  - "docs/**"
+
+migration:
+  - "src/main/resources/db/**"
+
+ci-cd:
+  - ".github/workflows/**"
