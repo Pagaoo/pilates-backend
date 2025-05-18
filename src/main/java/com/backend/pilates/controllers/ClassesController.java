@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,8 @@ public class ClassesController {
     @PostMapping
     public ResponseEntity<ClassesResponseDTO> createClass(@RequestBody @Valid ClassesRequestDTO classesRequestDTO) {
         ClassesResponseDTO newClass = classesService.createClass(classesRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newClass);
+        URI location = URI.create("/v1/classes/" + newClass.id());
+        return ResponseEntity.created(location).body(newClass);
     }
 
     @GetMapping

@@ -20,10 +20,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/professors")
+@RequestMapping("v1/professors")
 @Tag(name = "Professors", description = "Professors managements operations")
 public class ProfessorController {
     private final ProfessorService professorService;
@@ -74,7 +75,8 @@ public class ProfessorController {
     @PostMapping
     public ResponseEntity<ProfessorResponseDTO> createProfessor(@Valid @RequestBody ProfessorRequestDTO requestDTO) {
         ProfessorResponseDTO createProfessor = professorService.createProfessor(requestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createProfessor);
+        URI location = URI.create("/v1/professors/" + createProfessor.id());
+        return ResponseEntity.created(location).body(createProfessor);
     }
 
     @Operation(

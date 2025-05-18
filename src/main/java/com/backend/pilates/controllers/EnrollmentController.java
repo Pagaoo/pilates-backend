@@ -8,10 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/enrollments")
+@RequestMapping("v1/enrollments")
 public class EnrollmentController {
     private final EnrollmentService enrollmentService;
 
@@ -22,7 +23,8 @@ public class EnrollmentController {
     @PostMapping
     public ResponseEntity<List<EnrollmentResponseDTO>> createEnrollment(@RequestBody @Valid EnrollmentRequestDTO enrollmentRequestDTO) {
         List<EnrollmentResponseDTO> enrollments = enrollmentService.addStudentToClass(enrollmentRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(enrollments);
+        URI location = URI.create("/v1/enrollments");
+        return ResponseEntity.created(location).body(enrollments);
     }
 
     @DeleteMapping

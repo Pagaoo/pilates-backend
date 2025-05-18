@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+
 @RestController
-@RequestMapping("/users")
+@RequestMapping("v1/users")
 public class UserController {
 
     private final UserService userService;
@@ -24,6 +26,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         UserResponseDTO createdUser = userService.createUser(userRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        URI location = URI.create("/v1/users/" + createdUser.id());
+        return ResponseEntity.created(location).body(createdUser);
     }
 }

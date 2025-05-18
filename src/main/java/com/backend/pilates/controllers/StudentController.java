@@ -16,10 +16,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/students")
+@RequestMapping("v1/students")
 @Tag(name = "Students", description = "Student management operations")
 public class StudentController {
     private final StudentService studentService;
@@ -70,7 +71,8 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<StudentResponseDTO> createStudent(@RequestBody @Valid StudentRequestDTO studentRequestDTO) {
         StudentResponseDTO student = studentService.createStudent(studentRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(student);
+        URI location = URI.create("/v1/students/" + student.id());
+        return ResponseEntity.created(location).body(student);
     }
 
     @Operation(
