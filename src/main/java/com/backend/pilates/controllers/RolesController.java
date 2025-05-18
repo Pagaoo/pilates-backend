@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+
 @RestController
-@RequestMapping("/roles")
+@RequestMapping("v1/roles")
 public class RolesController {
     private final RolesService rolesService;
 
@@ -23,6 +25,7 @@ public class RolesController {
     @PostMapping
     public ResponseEntity<RolesResponseDTO> create(@RequestBody @Valid RolesRequestDTO rolesRequestDTO) {
         RolesResponseDTO createRole = rolesService.createRole(rolesRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createRole);
+        URI location = URI.create("v1/roles/" + createRole.id());
+        return ResponseEntity.created(location).body(createRole);
     }
 }
