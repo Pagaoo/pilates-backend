@@ -33,6 +33,9 @@ jobs:
       GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
     steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
       - name: Aplicar label feature
         if: startsWith(github.event.pull_request.title, 'feature:')
         run: gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-label "feature"
