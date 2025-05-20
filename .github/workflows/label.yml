@@ -22,34 +22,34 @@ jobs:
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
 
-label-by-title:
-  runs-on: ubuntu-latest
-  permissions:
-    pull-requests: write
-    contents: read
-    issues: write
+  label-by-title:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+      issues: write
 
-  env:
-    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  steps:
-    - name: Aplicar label feature
-      if: startsWith(github.event.pull_request.title, 'feature:')
-      run: |
-        gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels \
-          --method POST \
-          --field labels='["feature"]'
+    steps:
+      - name: Aplicar label feature
+        if: startsWith(github.event.pull_request.title, 'feature:')
+        run: |
+          gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels \
+            --method POST \
+            --field labels='["feature"]'
 
-    - name: Aplicar label fix
-      if: startsWith(github.event.pull_request.title, 'fix:')
-      run: |
-        gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels \
-          --method POST \
-          --field labels='["fix"]'
+      - name: Aplicar label fix
+        if: startsWith(github.event.pull_request.title, 'fix:')
+        run: |
+          gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels \
+            --method POST \
+            --field labels='["fix"]'
 
-    - name: Aplicar label documentation
-      if: startsWith(github.event.pull_request.title, 'documentation:')
-      run: |
-        gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels \
-          --method POST \
-          --field labels='["documentation"]'
+      - name: Aplicar label documentation
+        if: startsWith(github.event.pull_request.title, 'documentation:')
+        run: |
+          gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels \
+            --method POST \
+            --field labels='["documentation"]'
