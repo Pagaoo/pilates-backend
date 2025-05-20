@@ -35,12 +35,12 @@ jobs:
     steps:
       - name: Aplicar label feature
         if: startsWith(github.event.pull_request.title, 'feature:')
-        run: gh pr edit ${{ github.event.pull_request.number }} --add-label "feature"
+        run: gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-label "feature"
 
       - name: Aplicar label fix
         if: startsWith(github.event.pull_request.title, 'fix:')
-        run: gh pr edit ${{ github.event.pull_request.number }} --add-label "fix"
+        run: gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-label "fix"
 
       - name: Aplicar label chore
-        if: startsWith(github.event.pull_request.title, 'chore:')
-        run: gh pr edit ${{ github.event.pull_request.number }} --add-label "chore"
+        if: startsWith(github.event.pull_request.title, 'documentation:')
+        run: gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-label "documentation"
