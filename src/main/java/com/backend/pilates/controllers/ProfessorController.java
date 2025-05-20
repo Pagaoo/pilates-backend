@@ -5,8 +5,6 @@ import com.backend.pilates.dtos.request.ProfessorRequestDTO;
 import com.backend.pilates.dtos.request.ProfessorRequestUpdateDetailsDTO;
 import com.backend.pilates.dtos.response.ProfessorResponseChangedPasswordDTO;
 import com.backend.pilates.dtos.response.ProfessorResponseDTO;
-import com.backend.pilates.dtos.response.StudentResponseDTO;
-import com.backend.pilates.model.Professor;
 import com.backend.pilates.services.ProfessorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -35,18 +33,19 @@ public class ProfessorController {
 
     @Operation(
             summary = "Create a new professor",
+            operationId = "addProfessor",
             description = """
                     Performs a creation operation of a new professor entity in the database.
                   
                     Business Rules:
                     - email must be unique across the system;
                     - Create a new professor entity in the database;
-                    - Confirmation response (body response);
                     
                     System Behavior:
                     - Generates unique Professor id;
                     - Encrypt password;
                     - Records creation timestamp;
+                    - Confirmation response (body response);
                     """,
             responses = {
                     @ApiResponse(
@@ -81,6 +80,7 @@ public class ProfessorController {
 
     @Operation(
             summary = "Get all professors from the database",
+            operationId = "getAllProfessors",
             description =
                     """
                     Performs a get list of all professors in the database.
@@ -123,6 +123,7 @@ public class ProfessorController {
 
     @Operation(
             summary = "Get a professor by his id",
+            operationId = "getProfessorById",
             description =
                     """
                     Performs a search to return one professor by his id.

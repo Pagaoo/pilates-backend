@@ -33,18 +33,19 @@ public class StudentController {
 
   @Operation(
             summary = "Create new student",
+            operationId = "addStudent",
             description = """
                     Performs a creation of a new student entity in the database.
                   
                     Business Rules:
                     - Phone must be unique across the system;
                     - Create a new Student entity in the database;
-                    - Confirmation response (body response);
                     
                     System Behavior:
                     - Generates unique Student id;
                     - Sets default status as is_active=true;
                     - Records creation timestamp;
+                    - Confirmation response (body response);
                     """,
             responses = {
                     @ApiResponse(
@@ -77,6 +78,7 @@ public class StudentController {
 
     @Operation(
             summary = "Get all students from the database",
+            operationId = "getAllStudents",
             description =
                     """
                     Performs a get list of all students in the database.
@@ -103,6 +105,7 @@ public class StudentController {
 
     @Operation(
             summary = "Get a student by his id",
+            operationId = "getStudentById",
             description =
                     """
                     Performs a search to return one student by his id.
@@ -180,13 +183,14 @@ public class StudentController {
 
     @Operation(
             summary = "Update student status",
+            operationId = "patchStudentStatus",
             description =
                         """
                         Performs a logical deletion of an existing student by setting is_active=false.
                     
                         System behavior:
                         - Data remains in the database;
-                        - A scheduled job perform a permanent deletion of inactive students after 90 days;
+                        - A scheduled job will perform a permanent deletion of inactive students after 90 days;
                         - Confirmation response (body response);
 
                     """,
