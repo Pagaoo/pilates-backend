@@ -41,7 +41,6 @@ public class User {
     @Column(nullable = false, length = 60)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank
-    @Size(min = 8, max = 60)
     private String password;
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
@@ -49,11 +48,9 @@ public class User {
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(name = "created_at", nullable = false, updatable = false)
-    //como são para fins de auditoria, horários em UTC
     private Instant createdAt;
     @LastModifiedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(name = "updated_at", nullable = false)
-    //como são para fins de auditoria, horários em UTC
     private Instant updatedAt;
 }
