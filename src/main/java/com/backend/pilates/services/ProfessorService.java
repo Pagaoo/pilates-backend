@@ -10,6 +10,7 @@ import com.backend.pilates.model.Professor;
 import com.backend.pilates.repositories.ProfessorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -19,10 +20,12 @@ import java.util.List;
 public class ProfessorService {
     private final ProfessorRepository professorRepository;
     private final ProfessorMapper professorMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public ProfessorService(ProfessorRepository professorRepository, ProfessorMapper professorMapper) {
+    public ProfessorService(ProfessorRepository professorRepository, ProfessorMapper professorMapper, PasswordEncoder passwordEncoder) {
         this.professorRepository = professorRepository;
         this.professorMapper = professorMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -68,7 +71,8 @@ public class ProfessorService {
             throw new IllegalArgumentException("Use uma senha diferente da atual");
         }
 
-        professorMapper.updatePassword(professorRequestChangePasswordDTO.newPassword(), professor);
+        String encodedPassword = passwordEncoder.encode(professorRequestChangePasswordDTO.newPassword());
+        professorMapper.updatePassword(encodedPassword, professor);
         professor.setUpdatedAt(Instant.now());
         professorRepository.save(professor);
 
