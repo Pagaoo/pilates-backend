@@ -3,6 +3,8 @@ package com.backend.pilates.repositories;
 import com.backend.pilates.model.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
-    Professor findByEmail(String email);
+    Optional<Professor> findByEmail(String email);
 }
