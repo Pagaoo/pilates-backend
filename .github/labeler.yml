@@ -19,4 +19,4 @@ migrations:
   - "src/main/resources/db/**"
 
 ci-cd:
-  - ".github/workflows/**"
+  - ".github/**"
