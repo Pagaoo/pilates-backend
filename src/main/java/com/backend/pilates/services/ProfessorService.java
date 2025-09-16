@@ -20,9 +20,8 @@ import java.util.List;
 public class ProfessorService {
     private final ProfessorRepository professorRepository;
     private final ProfessorMapper professorMapper;
-    private final PasswordEncoder passwordEncoder;
 
-    public ProfessorService(ProfessorRepository professorRepository, ProfessorMapper professorMapper, PasswordEncoder passwordEncoder) {
+    public ProfessorService(ProfessorRepository professorRepository, ProfessorMapper professorMapper) {
         this.professorRepository = professorRepository;
         this.professorMapper = professorMapper;
         this.passwordEncoder = passwordEncoder;
@@ -55,6 +54,7 @@ public class ProfessorService {
         return professorMapper.toProfessorResponseDTO(updatedProfessor);
     }
 
+    /*
     @Transactional
     public ProfessorResponseChangedPasswordDTO changePassword(Long id, ProfessorRequestChangePasswordDTO professorRequestChangePasswordDTO) {
         Professor professor = professorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
@@ -82,7 +82,7 @@ public class ProfessorService {
                 professor.getUpdatedAt()
         );
     }
-
+*/
     @Transactional
     public void deleteProfessor(Long id) {
         Professor professor = professorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
